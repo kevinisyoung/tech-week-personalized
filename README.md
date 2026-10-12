@@ -1,5 +1,7 @@
 # Tech Week, personalized
 
+**Try it: [techweekranker.app](https://techweekranker.app)**
+
 A demo of [Subquadratic](https://subquadratic.ai)'s Snap long-context decision model. It ranks every upcoming LA Tech Week event for one person from their GitHub, a resume or LinkedIn PDF, and a few interests.
 
 Snap gets the whole event list in a single request: every description, host, time, and venue (about 200K tokens), plus the visitor's profile. There's no pre-filtering, retrieval, or chunking step. The page shows the context filling up, then the one request's token count and time.

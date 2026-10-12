@@ -3,6 +3,11 @@
   "name": "techweek-ranker",
   "main": "src/worker.js",
   "compatibility_date": "2026-10-01",
+  // Served at techweekranker.app (and www); Cloudflare creates the DNS records and certificates.
+  "routes": [
+    { "pattern": "techweekranker.app", "custom_domain": true },
+    { "pattern": "www.techweekranker.app", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
