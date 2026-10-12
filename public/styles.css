@@ -385,6 +385,10 @@ body.view-results #results-title { text-align: center; font-size: clamp(32px, 6v
 .foot-brand img { display: block; width: 320px; height: auto; }
 .foot-brand:focus-visible { outline: 2px solid var(--blue); outline-offset: 6px; }
 .foot-note { margin: 0; }
+.foot-code { margin: 0 0 var(--s2); font-size: 14px; font-weight: 600; }
+.foot-code a { color: var(--accent); text-decoration: none; border-radius: 4px; }
+.foot-code a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.foot-code a:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 .logo-dark { display: none !important; }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .logo-light { display: none !important; }
