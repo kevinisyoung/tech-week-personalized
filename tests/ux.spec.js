@@ -50,6 +50,14 @@ test('initial screen: real fonts, complete labels, keyboard order, no console er
   await page.keyboard.press('Tab');
   await expect(page.locator('#github')).toBeFocused();
   await page.keyboard.press('Tab');
+  // The LinkedIn "?" help is a tab stop where the browser makes buttons tabbable (not WebKit by default).
+  if (await page.locator('#linkedin-help-btn').evaluate(b => b === document.activeElement)) {
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#linkedin-help')).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#linkedin-help')).toBeHidden();
+    await page.keyboard.press('Tab');
+  }
   await expect(page.locator('#files')).toBeFocused();
   const chooserPromise = page.waitForEvent('filechooser');
   await page.keyboard.press('Enter');

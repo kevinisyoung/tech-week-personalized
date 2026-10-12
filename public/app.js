@@ -40,6 +40,15 @@ function init() {
     e.preventDefault();
     focusAndReveal($("step-1-title"));
   });
+  // The "?" next to the resume label: click (or tap) to toggle, Escape or a click elsewhere to close.
+  const help = $("linkedin-help-wrap");
+  const setHelp = (open) => {
+    help.classList.toggle("open", open);
+    $("linkedin-help-btn").setAttribute("aria-expanded", String(open));
+  };
+  $("linkedin-help-btn").addEventListener("click", () => setHelp(!help.classList.contains("open")));
+  document.addEventListener("click", (e) => { if (!help.contains(e.target)) setHelp(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setHelp(false); });
   $("profile").addEventListener("submit", parse);
   $("run").addEventListener("click", run);
   $("cancel-run").addEventListener("click", () => state.running?.abort());

@@ -4,6 +4,7 @@
   --faint: #525e71;
   --line: rgba(20, 24, 33, .09);
   --glass: rgba(255, 255, 255, .62);
+  --pop: #ffffff;
   --glass-strong: rgba(255, 255, 255, .82);
   --glass-edge: rgba(255, 255, 255, .9);
   --field: rgba(238, 241, 244, .75);
@@ -30,7 +31,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --ink: #eef1fe; --muted: #a6aec4; --faint: #a6b1cc; --accent: #b6c5ff; --selected-text: #10162c; --line: rgba(238, 241, 254, .1);
-    --glass: rgba(18, 24, 48, .55); --glass-strong: rgba(22, 30, 60, .78); --glass-edge: rgba(160, 178, 255, .16);
+    --pop: #161d3a; --glass: rgba(18, 24, 48, .55); --glass-strong: rgba(22, 30, 60, .78); --glass-edge: rgba(160, 178, 255, .16);
     --field: rgba(8, 12, 28, .5); --blue-soft: #2b3a86; --blue-wash: rgba(96, 118, 239, .16);
     --ok: #4fd39c; --error: #ff8f7d;
     --shadow: 0 12px 40px -12px rgba(0, 0, 0, .6);
@@ -44,7 +45,7 @@
 }
 :root[data-theme="dark"] {
   --ink: #eef1fe; --muted: #a6aec4; --faint: #a6b1cc; --accent: #b6c5ff; --selected-text: #10162c; --line: rgba(238, 241, 254, .1);
-  --glass: rgba(18, 24, 48, .55); --glass-strong: rgba(22, 30, 60, .78); --glass-edge: rgba(160, 178, 255, .16);
+  --pop: #161d3a; --glass: rgba(18, 24, 48, .55); --glass-strong: rgba(22, 30, 60, .78); --glass-edge: rgba(160, 178, 255, .16);
   --field: rgba(8, 12, 28, .5); --blue-soft: #2b3a86; --blue-wash: rgba(96, 118, 239, .16);
   --ok: #4fd39c; --error: #ff8f7d;
   --shadow: 0 12px 40px -12px rgba(0, 0, 0, .6);
@@ -521,3 +522,20 @@ body.building .wrap { padding-bottom: 70vh; }
 .powered img { height: 26px; width: auto; }
 .tw-sep { align-self: center; width: 3px; height: clamp(34px, 7vw, 60px); border-radius: 2px; background: var(--blue); }
 
+
+/* ---------- "?" help next to the resume label ---------- */
+.label-row { position: relative; display: flex; align-items: center; gap: 6px; margin-bottom: var(--s2); }
+.label-row .field-label { margin-bottom: 0; }
+.help-btn {
+  flex: none; width: 18px; height: 18px; padding: 0; border-radius: 50%; cursor: pointer;
+  border: 1px solid var(--muted); background: transparent; color: var(--muted);
+  font: 700 11px/1 "Inter Tight", system-ui, sans-serif; display: inline-grid; place-items: center;
+}
+.help-btn:hover, .help-btn[aria-expanded="true"] { color: var(--ink); border-color: var(--ink); }
+.help-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.help-pop {
+  display: none; position: absolute; left: 0; top: calc(100% + 6px); z-index: 20; width: max-content; max-width: min(300px, 100%);
+  margin: 0; padding: var(--s2) var(--s3); border-radius: 10px; font-size: 13px; line-height: 1.45; color: var(--ink);
+  background: var(--pop); border: 1px solid var(--blue-soft); box-shadow: 0 10px 24px -12px rgba(16, 22, 44, .35);
+}
+.label-row:has(.help-btn:hover) .help-pop, .label-row.open .help-pop { display: block; }

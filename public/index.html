@@ -68,7 +68,11 @@
             <div class="or-sep" aria-hidden="true"><span>and/or</span></div>
 
             <div class="field">
-              <span class="field-label" id="files-label">Resume or LinkedIn profile as PDF</span>
+              <div class="label-row" id="linkedin-help-wrap">
+                <span class="field-label" id="files-label">Resume or LinkedIn profile as PDF</span>
+                <button type="button" class="help-btn" id="linkedin-help-btn" aria-label="How to save your LinkedIn profile as a PDF" aria-expanded="false" aria-controls="linkedin-help">?</button>
+                <p class="help-pop" id="linkedin-help" role="note">On LinkedIn (desktop): open your profile, click <strong>Resources</strong> (or <strong>More</strong>), then <strong>Save to PDF</strong>.</p>
+              </div>
               <label class="drop" id="drop" for="files">
                 <input id="files" type="file" tabindex="0" accept=".pdf,.txt,.md" multiple aria-labelledby="files-label">
                 <span class="drop-title">Upload a PDF</span>
