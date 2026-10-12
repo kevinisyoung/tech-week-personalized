@@ -1,0 +1,12 @@
+# Copy to .dev.vars for local dev. In production set these with `npx wrangler secret put <NAME>`.
+# SubQ decisions API: POST {SUBQ_BASE_URL}/v1/systemone
+SUBQ_BASE_URL=https://api.subq.ai
+SUBQ_API_KEY=replace-me
+SUBQ_MODEL=subq-snap-preview
+
+# Optional: raises GitHub's unauthenticated limit (60 requests/hour shared by all visitors).
+# GITHUB_TOKEN=
+
+# Local UI work without a SubQ key: rank by shared keywords instead (labeled as such in the UI).
+# Never set this in production.
+# MOCK_RANKER=1

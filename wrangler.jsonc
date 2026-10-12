@@ -1,0 +1,35 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "techweek-ranker",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    // Display name shown in the UI. Endpoint, key, and model ID are secrets (see .dev.vars.example).
+    "MODEL_LABEL": "Snap",
+    "TOP_N": "30",
+    // Which Tech Week this ranks. src/events.json comes from: npm run fetch-details -- --city la
+    "CITY_LABEL": "LA",
+    "TECH_WEEK_LAST_DAY": "2026-10-18",
+    // Snap's context window; every remaining event plus the profile must fit.
+    "CONTEXT_WINDOW_TOKENS": "384000",
+    // Where "Learn about Snap" (under the top picks) links to. Must be https; leave empty to hide the button.
+    "SNAP_CTA_URL": "https://subquadratic.ai",
+    // "1" turns off /api/rank (no SubQ calls). Set "0" (or override in .dev.vars) to rank.
+    "RANKING_DISABLED": "0"
+  },
+  // Per-IP limit on /api/rank. Each request sends the full event list, so keep this tight for a public demo.
+  // namespace_id is any number unique to this account's rate limiters.
+  "ratelimits": [
+    {
+      "name": "RANK_LIMITER",
+      "namespace_id": "4401",
+      "simple": { "limit": 4, "period": 60 }
+    }
+  ],
+  "observability": { "enabled": true }
+}

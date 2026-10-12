@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tech Week Picks</title>
+  <meta name="description" content="Tell us about yourself and get every LA Tech Week event ranked for you in one long-context prompt.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="preload" href="/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/fonts.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#step-1-title" tabindex="0">Skip to your profile</a>
+  <div class="sky" aria-hidden="true"><div class="rays"></div><div class="grain"></div></div>
+
+  <canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+  <div class="spotlight" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="topbar-brand" href="https://subquadratic.ai" target="_blank" rel="noopener noreferrer" aria-label="SubQ Snap">
+      <img class="logo-light snap-logo" src="/brand/subq-snap-logo.png" alt="" width="200" height="38">
+      <img class="logo-dark" src="/brand/lockup-white.svg" alt="" width="144" height="36">
+    </a>
+    <a class="topbar-link" href="https://subquadratic.ai" target="_blank" rel="noopener noreferrer">
+      <span class="topbar-long">Learn about <span class="model-name">Snap</span></span><span class="topbar-short"><span class="model-name">Snap</span></span> <span aria-hidden="true">→</span>
+    </a>
+  </header>
+  <main class="wrap">
+    <header class="hero">
+      <h1 class="tw-lockup">
+        <span class="tw-city">LA</span>
+        <svg class="tw-logo" viewBox="0 0 814 513" role="img" aria-label="Tech Week"><path fill-rule="evenodd" clip-rule="evenodd" d="M84 1H0V35H25L25 257H59L59 35H84V1Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M128 1H94L94 257H128H167V223H128V137H162V103H128V35H167V1H128Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M309 1V103H336L336 1H370L370 257H336V137H309L309 257H275L275 1H309Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M211 0H209C191.327 0 177 14.3269 177 32L177 226C177 243.673 191.327 258 209 258H211H231H233C250.673 258 265 243.673 265 226L265 138H231L231 224H211V34H231V102H265L265 32C265 14.3269 250.673 0 233 0H231H211Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M425.676 443.811L414 257H380L400.5 513H420H430H449L459 342.333L469 513H488H498H517.5L538 257H504L492.324 443.811L477 257H464H454H441L425.676 443.811Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M582 257H548L548 513H582H621V479H582V393H616V359H582V291H621V257H582Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M665 257H631L631 513H665H704V479H665V393H699V359H665V291H704V257H665Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M748 366V257H714L714 432V513H748V432L756.081 403.121L780 513H814L782 366L810 257H776L748 366Z" fill="currentColor"/></svg>
+        <span class="tw-sep" aria-hidden="true"></span>
+        <span class="tw-tag">Personalized</span>
+      </h1>
+      <p class="powered">powered by
+        <img class="logo-light" src="/brand/subq-snap-logo.png" alt="SubQ Snap" width="158" height="30">
+        <img class="logo-dark" src="/brand/lockup-white.svg" alt="Subquadratic" width="120" height="30">
+      </p>
+    </header>
+
+    <p id="events-status" class="load-status" role="status">Loading events…</p>
+    <div id="events-error" class="panel load-error" hidden>
+      <p id="events-error-message" class="error" role="alert"></p>
+      <button tabindex="0" id="retry-events" type="button" class="secondary">Try again</button>
+    </div>
+    <ol class="steps" aria-label="Build your event picks">
+      <!-- Step 1 -->
+      <li class="step" id="step-1" data-state="active" aria-current="step">
+        <div class="node" aria-hidden="true"><span>1</span></div>
+        <section class="panel">
+          <div class="panel-head">
+            <h2 id="step-1-title" tabindex="-1">Tell us about yourself</h2>
+          </div>
+
+          <form id="profile" novalidate>
+            <fieldset id="profile-fields" aria-label="Your profile">
+            <div class="field">
+              <label for="github">GitHub</label>
+              <div class="input-prefix">
+                <span>github.com/</span>
+                <input id="github" name="gh-handle" type="search" enterkeyhint="next" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="octocat" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" aria-describedby="github-hint">
+              </div>
+              <span id="github-hint" class="sr-only">Enter a GitHub username or paste a profile URL.</span>
+            </div>
+
+            <div class="or-sep" aria-hidden="true"><span>and/or</span></div>
+
+            <div class="field">
+              <span class="field-label" id="files-label">Resume or LinkedIn profile as PDF</span>
+              <label class="drop" id="drop" for="files">
+                <input id="files" type="file" tabindex="0" accept=".pdf,.txt,.md" multiple aria-labelledby="files-label">
+                <span class="drop-title">Upload a PDF</span>
+              </label>
+              <ul id="file-list" class="file-list" hidden></ul>
+              <p id="upload-error" class="error" role="alert" hidden></p>
+            </div>
+
+            <div class="or-sep" aria-hidden="true"><span>and/or</span></div>
+
+            <div class="field">
+              <label for="interests">Interests</label>
+              <textarea id="interests" rows="3" placeholder="Topics, people, or perks. e.g. AI evals and free food"></textarea>
+              <div id="interest-ideas" class="ideas" role="group" aria-label="Add an interest"></div>
+            </div>
+
+            <div class="actions">
+              <button tabindex="0" id="continue" type="submit" class="primary" disabled>Build my context</button>
+            </div>
+            <p id="form-error" class="error" role="alert" tabindex="-1" hidden></p>
+            </fieldset>
+          </form>
+        </section>
+      </li>
+
+      <!-- Step 2 -->
+      <li class="step" id="step-2" data-state="upcoming">
+        <div class="node" aria-hidden="true"><span>2</span></div>
+        <section class="panel">
+          <div class="panel-head">
+            <h2 id="step-2-title" tabindex="-1">Build your context</h2>
+            <span class="pill">Up next</span>
+          </div>
+          <div id="ingest" class="ingest" hidden>
+            <p class="ingest-total"><span id="ingest-tokens" class="ingest-number">0</span> <span class="ingest-unit">tokens</span></p>
+            <ul id="ingest-feed" class="ingest-feed"></ul>
+            <div class="ingest-track">
+              <div id="ingest-bar" class="ingest-bar"></div>
+              <div id="ingest-mark" class="ingest-mark"><span>32K-context models</span></div>
+            </div>
+            <div class="ingest-scale"><span>0</span><span><span class="model-name">Snap</span> · <span id="ingest-window">384K</span> window</span></div>
+          </div>
+        </section>
+      </li>
+
+      <!-- Step 3 -->
+      <li class="step" id="step-3" data-state="upcoming">
+        <div class="node" aria-hidden="true"><span>3</span></div>
+        <section class="panel">
+          <div class="panel-head">
+            <h2 id="step-3-title" tabindex="-1">One-Shot Run <span class="model-name">Snap</span></h2>
+            <span class="pill">Up next</span>
+          </div>
+          <button tabindex="0" id="run" type="button" class="primary run" hidden>Run Snap</button>
+          <p id="run-caption" class="run-caption" hidden></p>
+          <div id="readout" class="readout" hidden>
+            <div class="big">
+              <span class="big-value" id="big-tokens">0</span>
+              <span class="big-label" id="big-tokens-label">tokens in one prompt</span>
+            </div>
+            <div class="big">
+              <span class="big-value" id="big-time">0.0s</span>
+              <span class="big-label" id="big-time-label">elapsed</span>
+            </div>
+          </div>
+          <div id="run-progress" class="run-progress" hidden>
+            <p id="run-status" class="sr-only" role="status"></p>
+            <button tabindex="0" id="cancel-run" type="button" class="secondary">Cancel</button>
+          </div>
+          <p id="run-error" class="error" role="alert" hidden></p>
+        </section>
+      </li>
+    </ol>
+
+    <section id="results" class="results" aria-labelledby="results-title" hidden>
+      <button id="back" class="back" type="button">← Back</button>
+      <h2 id="results-title" tabindex="-1">Here's your LA Tech Week picks</h2>
+      <p id="results-speed" class="results-speed" hidden></p>
+      <p id="summary" class="summary"></p>
+      <h3 class="section-label" hidden>Upcoming events you shouldn't miss</h3>
+      <ol id="top-list" class="list top-list"></ol>
+      <div id="snap-cta" class="snap-cta" hidden>
+        <a id="snap-cta-link" class="primary snap-cta-link" target="_blank" rel="noopener noreferrer"><span>Learn about Subquadratic's <span class="model-name">Snap</span></span><span class="cta-arrow" aria-hidden="true">→</span></a>
+      </div>
+      <div id="more">
+        <h3 class="section-label">Other upcoming events</h3>
+        <div id="days" class="chips" role="group" aria-label="Filter by day"></div>
+        <p id="results-count" class="results-count" role="status"></p>
+        <ol id="list" class="list"></ol>
+      </div>
+    </section>
+
+    <section id="empty" class="panel empty" hidden>
+      <h2 id="empty-title" tabindex="-1">The event list isn't loaded yet</h2>
+      <p class="panel-sub">Check back soon.</p>
+      <button tabindex="0" id="refresh-events" type="button" class="secondary">Check again</button>
+    </section>
+    <p id="announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+    <noscript><p class="panel">Enable JavaScript to prepare your profile and rank events.</p></noscript>
+  </main>
+
+  <footer class="foot">
+    <a class="foot-brand" href="https://subquadratic.ai" target="_blank" rel="noopener noreferrer" aria-label="Subquadratic">
+      <img class="logo-light" src="/brand/lockup-black.svg" alt="" width="240" height="60">
+      <img class="logo-dark" src="/brand/lockup-white.svg" alt="" width="240" height="60">
+    </a>
+    <p class="foot-note">Not affiliated with a16z or Tech Week. Picks can be wrong; check the event page.</p>
+  </footer>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

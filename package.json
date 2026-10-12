@@ -1,0 +1,16 @@
+{
+  "name": "techweek-snap-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "fetch-details": "node scripts/fetch-details.mjs",
+    "test:ux": "playwright test"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "wrangler": "^4.147.0"
+  }
+}

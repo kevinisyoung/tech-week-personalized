@@ -1,0 +1,8 @@
+node_modules
+.dev.vars
+.wrangler
+test-results/
+playwright-report/
+.DS_Store
+# Cache of raw Tech Week MCP responses (npm run fetch-details); src/events.json is built from it.
+data/
